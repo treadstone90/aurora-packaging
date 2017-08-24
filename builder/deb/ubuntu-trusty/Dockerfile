@@ -16,6 +16,8 @@ WORKDIR /aurora
 ENV HOME /aurora
 ENV DEBIAN_FRONTEND noninteractive
 
+RUN dpkg --purge --force-depends ca-certificates-java
+
 RUN apt-get update && apt-get -y install \
   bison \
   debhelper \
@@ -23,6 +25,17 @@ RUN apt-get update && apt-get -y install \
   devscripts \
   dpkg-dev \
   curl \
+  wget \
+  automake \
+  flex \
+  g++ \
+  libboost1.55-all-dev \
+  libevent-dev \
+  libssl-dev \
+  libtool \
+  make \
+  pkg-config \
+  ca-certificates-java \
   git \
   libapr1-dev \
   libcurl4-openssl-dev \
@@ -36,11 +49,11 @@ RUN add-apt-repository -y ppa:openjdk-r/ppa \
   && apt-get -y install openjdk-8-jdk \
   && update-alternatives --set java /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java
 
-RUN curl -sSL http://apache.org/dist/thrift/KEYS | gpg --import - && \
-   gpg --export --armor 66B778F9 | sudo apt-key add - && \
-   echo 'deb http://www.apache.org/dist/thrift/debian 0.9.1 main' > /etc/apt/sources.list.d/thrift.list && \
-   apt-get update && \
-   apt-get -y install thrift-compiler=0.9.1
+RUN wget http://www.trieuvan.com/apache/thrift/0.10.0/thrift-0.10.0.tar.gz \
+  && tar -xvf thrift-0.10.0.tar.gz \
+  && cd thrift-0.10.0/ \
+  && ./configure \
+  && make install
 
 # Install gradle.
 RUN git clone --depth 1 https://github.com/benley/gradle-packaging \

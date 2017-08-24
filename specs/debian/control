@@ -9,9 +9,7 @@ Build-Depends: debhelper (>= 9),
  curl,
  openssl,
  git,
- wget,
- thrift-compiler (>= 0.9.1)
-# thrift-compiler version needs to match the ext.thriftRev value from build.gradle
+ wget
 Section: net
 Standards-Version: 3.9.5
 Homepage: https://aurora.apache.org
