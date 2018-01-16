@@ -28,6 +28,7 @@ RUN yum install -y \
     libcurl-devel \
     libffi-devel \
     openssl \
+    openssl-devel \
     patch \
     python \
     python-devel \
@@ -37,5 +38,9 @@ RUN yum install -y \
     wget \
     which \
     zlib-devel
+
+# Crude workaround for https://github.com/gradle/gradle/issues/1782
+RUN mkdir -p /usr/lib/jvm/java-8-openjdk-amd64/jre/lib/security
+RUN ln -s /etc/pki/java/cacerts /usr/lib/jvm/java-8-openjdk-amd64/jre/lib/security/cacerts
 
 ADD build.sh /build.sh

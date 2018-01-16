@@ -28,6 +28,7 @@ RUN apt-get update && apt-get -y install \
   gcc-4.8 \
   libapr1-dev \
   libcurl4-openssl-dev \
+  libssl-dev \
   libsvn-dev \
   libffi-dev \
   python-all-dev \
@@ -37,19 +38,13 @@ RUN apt-get update && apt-get -y install \
 RUN apt-get -y install openjdk-8-jdk \
   && update-alternatives --set java /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java
 
-RUN curl -sSL http://apache.org/dist/thrift/KEYS | gpg --import - && \
-   gpg --export --armor 66B778F9 | apt-key add - && \
-   echo 'deb http://www.apache.org/dist/thrift/debian 0.9.1 main' > /etc/apt/sources.list.d/thrift.list && \
-   apt-get update && \
-   apt-get -y install thrift-compiler=0.9.1
-
 # Install gradle.
 RUN git clone --depth 1 https://github.com/benley/gradle-packaging \
   && cd gradle-packaging \
   && apt-get -y install ruby ruby-dev unzip wget \
-  && gem install fpm && ./gradle-mkdeb.sh 3.1 \
+  && gem install fpm && ./gradle-mkdeb.sh 4.2 \
   && apt-get -y install gdebi-core \
-  && gdebi --non-interactive gradle-3.1_3.1-2_all.deb \
+  && gdebi --non-interactive gradle-4.2_4.2-2_all.deb \
   && cd .. && rm -rf gradle-packaging
 
 ADD build.sh /build.sh

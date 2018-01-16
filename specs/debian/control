@@ -3,15 +3,13 @@ Priority: optional
 Maintainer: The Apache Aurora authors <dev@aurora.apache.org>
 Build-Depends: debhelper (>= 9),
  java8-sdk | openjdk-8-jdk,
- gradle (>= 3.1) | gradle-3.1,
+ gradle (>= 4.2) | gradle-4.2,
  python-all-dev,
  libkrb5-dev,
  curl,
  openssl,
  git,
- wget,
- thrift-compiler (>= 0.9.1)
-# thrift-compiler version needs to match the ext.thriftRev value from build.gradle
+ wget
 Section: net
 Standards-Version: 3.9.5
 Homepage: https://aurora.apache.org
@@ -22,7 +20,7 @@ Section: net
 Depends: ${shlibs:Depends}, ${misc:Depends},
  adduser,
  openjdk-8-jre-headless | java8-runtime-headless,
- mesos (>= 1.2.0)
+ mesos (>= 1.4.0)
 Recommends: aurora-tools
 Suggests: aurora-doc
 Description: Apache Aurora scheduler
