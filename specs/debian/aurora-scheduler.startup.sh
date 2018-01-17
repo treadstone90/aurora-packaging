@@ -34,7 +34,6 @@ exec /usr/sbin/aurora-scheduler \
   -native_log_file_path="$LOGDB_FILE_PATH" \
   -backup_dir="$BACKUP_DIR" \
   -thermos_executor_path="$THERMOS_EXECUTOR_PATH" \
-  -thermos_executor_resources="$THERMOS_EXECUTOR_RESOURCES" \
   -thermos_executor_flags="$THERMOS_EXECUTOR_FLAGS" \
   -allowed_container_types="$ALLOWED_CONTAINER_TYPES" \
   $EXTRA_SCHEDULER_ARGS
