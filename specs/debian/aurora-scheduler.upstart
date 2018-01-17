@@ -19,11 +19,6 @@ post-stop exec sleep 5
 script
   . /etc/default/aurora-scheduler
   export JAVA_OPTS GLOG_v LIBPROCESS_PORT LIBPROCESS_IP
-  # Workaround for empty strings parsed as non-empty lists
-  # https://issues.apache.org/jira/browse/AURORA-1962
-  if [ -n "$THERMOS_EXECUTOR_RESOURCES" ]; then
-    THERMOS_EXECUTOR_RESOURCES_ARGS="-thermos_executor_resources=$THERMOS_EXECUTOR_RESOURCES"
-  fi
   
   exec start-stop-daemon --start -c aurora \
     --exec /usr/share/aurora/bin/aurora-scheduler -- \
@@ -37,7 +32,6 @@ script
       -native_log_file_path="$LOGDB_FILE_PATH" \
       -backup_dir="$BACKUP_DIR" \
       -thermos_executor_path="$THERMOS_EXECUTOR_PATH" \
-      $THERMOS_EXECUTOR_RESOURCES_ARGS \ \
       -thermos_executor_flags="$THERMOS_EXECUTOR_FLAGS" \
       -allowed_container_types="$ALLOWED_CONTAINER_TYPES" \
       $EXTRA_SCHEDULER_ARGS
